@@ -1,0 +1,85 @@
+﻿@model IEnumerable<HotelAssign1.Models.Restaurant>
+
+@{
+    ViewBag.Title = "List of Restaurants";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>List of Restaurants</h2>
+@if (ViewBag.IsAdmin)
+{
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+ }
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.RestaurantName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RestaurantCuisine)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RestaurantRating)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RestaurantLocation)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RestaurantName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RestaurantCuisine)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RestaurantRating)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RestaurantLocation)
+                </td>
+                <td>
+                    @if (ViewBag.IsAdmin)
+                    {
+                        <a href="@Url.Action("Edit", "Restaurants", new { id = item.RestaurantId })" class="btn-sm btn-warning" data-toggle="tooltip" title="Edit">
+
+                            <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                        </a>
+                    }
+                    @*@Html.ActionLink("Edit", "Edit", new { id = item.RestaurantId })*@
+                    <a href="@Url.Action("Details", "Restaurants", new { id = item.RestaurantId })" class="btn-sm btn-primary" data-toggle="tooltip" title="Preview">
+                        <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                    </a>
+                    @if (ViewBag.IsAdmin)
+                    {
+                        @*@Html.ActionLink("Details", "Details", new { id = item.RestaurantId })*@
+                        <a href="@Url.Action("Delete", "Restaurants", new { id = item.RestaurantId })" class="btn-sm btn-danger" data-toggle="tooltip" title="Delete">
+                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                        </a>
+                    }
+                        @*@Html.ActionLink("Delete", "Delete", new { id = item.RestaurantId })*@
+                    </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+@section Scripts {
+
+    <script src="~/Scripts/DataTables/jquery.dataTables.js"></script>
+    <script src="~/Scripts/DataTables/dataTables.bootstrap.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('.table').DataTable();
+        });
+    </script>
+}
+<link href="~/Content/DataTables/css/dataTables.bootstrap.min.css" rel="stylesheet" />

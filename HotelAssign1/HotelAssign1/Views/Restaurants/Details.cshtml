@@ -1,0 +1,223 @@
+﻿@model HotelAssign1.Models.Restaurant
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link href="~/Scripts/jquery.datetimepicker.min.css" rel="stylesheet" />
+
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>
+<script src="~/Scripts/jquery.datetimepicker.full.min.js"></script>
+
+
+<style>
+
+    #picker {
+        
+        white-space: normal;
+        margin-right: 10px;
+        width: 150px;
+        margin-bottom: 20px;
+    }
+
+    #book {
+        white-space: normal;
+        margin-bottom: 20px;
+     }
+
+    /*#RatingBox {
+        
+        white-space: normal;
+        margin-right: 10px;
+        width: 150px;
+        margin-bottom: 20px;
+    }*/
+
+    #RatingButton {
+        white-space: normal;
+        margin-bottom: 15px;
+        margin-left:10px;
+     }
+
+    input[type="radio"]{
+  margin: 5px 0;
+}
+
+    .booking {
+        display: inline-block;
+    }
+
+    .rating {
+        display: inline-block;
+    }
+</style>
+
+<h2>Restaurant Details</h2>
+<div>
+
+    <hr />
+    <dl class="dl-horizontal">
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RestaurantName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.RestaurantName)
+        </dd>
+        <br>
+        <dt>
+            @Html.DisplayNameFor(model => model.RestaurantCuisine)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.RestaurantCuisine)
+        </dd>
+        <br>
+        <dt>
+            @Html.DisplayNameFor(model => model.RestaurantRating)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.RestaurantRating)
+        </dd>
+        <br>
+        <dt>
+            @Html.DisplayNameFor(model => model.RestaurantLocation)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.RestaurantLocation)
+        </dd>
+        <br>
+
+
+    </dl>
+</div>
+
+@*@using (Html.BeginForm("MakeBooking", "Restaurants", FormMethod.Post))
+{*@
+   
+<form>
+    <div class="form-group">
+        @Html.TextBoxFor(x => x.RestaurantId, new { style = "display: none;" })
+        @*@Html.HiddenFor(x => x.RestaurantId)*@
+        <div class="col-md-12 booking">
+            <input type="text" name="BookingDate" id="picker" class="form-control col-sm-3">
+            <button id="book" type="submit" class="btn btn-success">Book a table!</button>
+        </div>
+        <div class="col-md-12 rating">
+            @*<input type="text" name="RatingBox" id="RatingBox" class="form-control col-sm-3">*@
+            <div class="" id="filterDay">
+                <input type="radio" name="rating" value="1">
+                <label>1 &nbsp; &nbsp;</label>
+                <input type="radio" name="rating" value="2">
+                <label>2 &nbsp; &nbsp;</label>
+                <input type="radio" name="rating" value="3">
+                <label>3 &nbsp; &nbsp;</label>
+                <input type="radio" name="rating" value="4">
+                <label>4 &nbsp; &nbsp;</label>
+                <input type="radio" name="rating" value="5">
+                <label>5 &nbsp; &nbsp;</label>
+                <button id="RatingButton" type="submit" class="btn btn-primary">Rate the restaurant!</button>
+            </div>
+            
+
+        </div>
+    </div>
+
+    
+</form>
+   
+@*}*@
+<hr>
+<p>
+    @if (ViewBag.IsAdmin)
+    {
+        @Html.ActionLink("Edit", "Edit", new { id = Model.RestaurantId })
+    }
+
+    @Html.ActionLink("Back to List", "Index")
+</p>
+
+<script>
+
+    //$("#RatingBox").keyup(function () {
+    //    if ($("#RatingBox").val() > 5 || $("#RatingBox").val() < 1)
+    //    {
+    //        alert("Please rate the restaurant between 1 and 5.");
+    //    }
+    //});
+
+    $("#RatingButton").click(function (e) {
+        debugger;
+        //if ($("#RatingBox").val() > 5 || $("#RatingBox").val().trim() == "" || $("#RatingBox").val() < 1) {
+        //    alert("Please rate the restaurant between 1 and 5.");
+        //}
+        if ($('#filterDay input:radio:checked').val() == undefined)
+        { alert("Please rate the restaurant between 1 and 5.");}
+        else {
+            e.preventDefault();
+            var saveUrl = '@Url.Action("RateRestaurant","Restaurants")';
+            //var rating = $("#RatingBox").val();
+            var rating = $('#filterDay input:radio:checked').val();
+            var RestaurantId = $("#RestaurantId").val();
+            $.ajax({
+                url: saveUrl,
+                data: { 'RestaurantRating': rating, 'RestaurantId': RestaurantId },
+                method: "POST",
+                error: function () {
+                    alert("Ajax call failed");
+                }
+            }).done(function (data) {
+                debugger;
+                alert("You have successfully rated the restaurant!");
+
+                //window.location.replace(data.newUrl);
+            })
+
+        }
+    });
+
+    $("#book").click(function (e) {
+        
+        
+            e.preventDefault();
+        var saveUrl = '@Url.Action("MakeBooking","Restaurants")';
+        var datetime = $(this).prev('input').val();
+        var Restaurantid = $("#RestaurantId").val();
+        $.ajax({
+            url: saveUrl,
+            data: { 'DateAndTime': datetime, 'RestaurantId': Restaurantid },
+            method: "POST",
+            error: function () {
+                alert("Ajax call failed");
+            }
+        }).done(function (data) {
+            debugger;
+            if (data.BookingStatus == "OverBooked") {
+                alert("Oops! The restaurant has been overbooked. Please select some other date or time.");
+            }
+            else { alert("Booking done successfully! An email confirming your reservation has been sent to your email id."); }
+
+            //window.location.replace(data.newUrl);
+        })
+    
+
+    });
+
+</script>
+
+<script>
+
+    var date = new Date();
+    date.setDate(date.getDate());
+    $("#picker").datetimepicker({
+        showOn: 'button',
+        timepicker: true,
+        datepicker: true,
+        format: 'Y-m-d H:i',
+        value: '2019-08-20 12:00',
+        minDate: date
+    });
+
+
+</script>
