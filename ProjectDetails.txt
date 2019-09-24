@@ -1,0 +1,19 @@
+Google drive link to the demo video of my project: https://drive.google.com/drive/u/0/folders/1Zu_jZursqdLyltQjHTHwaDaxSs7ldj7j
+
+It is a mini project which I had developed in few weeks. I am still making changes and enhancing the project. It is developed in ASP.NET(C# language) and I have used javascript, jquery, 
+HTML,CSS to develop the front end. The project has the following features:
+
+(i) The user can either register or login via their google login (external authentication).
+
+(ii) The user can see a list of restaurants(when clicked on the "Restaurants" tab) and search the restaurants as well based on various categories.
+
+(iii) The user can view the details of the restaurant and make a booking for a particular time and date. Once booked, an email will be sent to the user confirming the reservation.
+
+(iv) The user can also give rating to the restaurants.
+
+(v) In the "Events" tab, a list of various events will be shown and their location can be seen on google maps.(I have used google api)
+
+(vi) In order to login as an administrator, please follow the credentials on the top of the login page.
+
+(vii) The admin has the rights to create a restaurant, create an event, edit details of a restaurant and delete a restaurant.
+
