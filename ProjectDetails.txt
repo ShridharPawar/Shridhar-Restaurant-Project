@@ -1,6 +1,6 @@
 Google drive link to the demo video of my project: https://drive.google.com/drive/u/0/folders/1Zu_jZursqdLyltQjHTHwaDaxSs7ldj7j
 
-It is a mini project which I had developed in few weeks. I am still making changes and enhancing the project. It is developed in ASP.NET(C# language) and I have used javascript, jquery, 
+It is a mini project which I had developed in a few weeks. I am still making changes and enhancing the project. It is developed in ASP.NET(C# language) and I have used javascript, jquery, 
 HTML,CSS to develop the front end. The project has the following features:
 
 (i) The user can either register or login via their google login (external authentication).
@@ -16,4 +16,12 @@ HTML,CSS to develop the front end. The project has the following features:
 (vi) In order to login as an administrator, please follow the credentials on the top of the login page.
 
 (vii) The admin has the rights to create a restaurant, create an event, edit details of a restaurant and delete a restaurant.
+
+(viii) The user can see the bar chart and line chart comparing the restaurants names and their ratings.
+
+(ix) There is also a functionality of generating PDF.
+
+(x) Bulk email is sent to all the customers who have subscribed to their newsletter whenever a new restaurant is launched or a new event is being organized.
+
+(xi) An attachment can be attached with the email as well.
 
