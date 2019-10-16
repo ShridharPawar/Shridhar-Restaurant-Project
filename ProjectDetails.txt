@@ -21,7 +21,7 @@ HTML,CSS to develop the front end. The project has the following features:
 
 (ix) There is also a functionality of generating PDF.
 
-(x) Bulk email is sent to all the customers who have subscribed to their newsletter whenever a new restaurant is launched or a new event is being organized.
+(x) Bulk email is sent to the customers(admin can select the customers from a checklist) whenever a new restaurant is launched.
 
 (xi) An attachment can be attached with the email as well.
 
