@@ -1,16 +1,63 @@
 ﻿@model IEnumerable<HotelAssign1.Models.Customer>
 
 @{
-    ViewBag.Title = "Index";
+    
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<head>
+    <style>
+        /*.bg {
+            background-image: url('../../Content/newspaper2.jpg');
+            z-index: -2;
+             opacity:0.3;
+            height: 100%;
+            min-height: 100vh;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }*/
+        /*.banner {
+            position:absolute;
+            top:50%;
+            left:50%;
+            transform:translate(-50%,-50%);
+           
+            width:45%;
+            text-align:center;
+            background-color:rgba(0,0,0,0.3);
+            color:#fff;
+           }*/
+            .banner p 
+            {
+            font-size: 20px;
+            
+            color:black;
+            filter:brightness(0.7);
+            }
+            .banner ul 
+            {
+            font-size: 20px;
+            
+            color:black;
+            filter:brightness(0.7);
+            }
+
+        #heading {margin-top:50px;
+        }
+    </style>
+</head>
+
+<h2 id="heading">Newsletter subscription</h2>
 @if(ViewBag.PersonalDetailsAdded == false)
 { 
-    <p>
-        @Html.ActionLink("Create New", "Create")
-    </p>
+<p>
+   
+    <a href="@Url.Action("Create", "Customers")" class="btn btn-primary" data-toggle="tooltip" title="Unsubscribe">
+        
+        Subscribe!
+    </a>
+</p>
 }
 <table class="table">
     <tr>
@@ -45,11 +92,25 @@
                 @Html.DisplayFor(modelItem => item.ContactNumber)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                
+                <a href="@Url.Action("Delete", "Customers", new { id = item.Id })" class="btn btn-primary" data-toggle="tooltip" title="Unsubscribe">
+                  
+                    Unsubscribe!
+                </a>
             </td>
         </tr>
     }
 
 </table>
+
+<div class="bg"></div>
+<div class="banner col-md-12 col-12 col-sm-6">
+    <p>
+        <strong>Subscribe to our newsletter which has the following features:</strong>
+        <ul class="content">
+            <li>Get an email everytime a new restaurant is added to the website.</li>
+            <li>Get an email everytime a new event is being organized in your city!</li>
+            <li>If you are a foodie or a social person, subscribing to our newsletter will help you stay updated!</li>
+        </ul>
+    </p>
+</div>

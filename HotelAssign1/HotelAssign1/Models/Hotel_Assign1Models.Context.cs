@@ -30,5 +30,6 @@ namespace HotelAssign1.Models
         public virtual DbSet<Location> Locations { get; set; }
         public virtual DbSet<Customer> Customers { get; set; }
         public virtual DbSet<RestaurantRating> RestaurantRatings { get; set; }
+        public virtual DbSet<Image> Images { get; set; }
     }
 }

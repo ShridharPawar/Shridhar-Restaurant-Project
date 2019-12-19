@@ -1,0 +1,59 @@
+﻿@model IEnumerable<HotelAssign1.Models.Booking>
+
+@{
+    ViewBag.Title = "EditBooking";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+    <style>
+        #heading {
+            margin-top: 50px;
+        }
+    </style>
+<h2 id="heading">Delete My Booking</h2>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @*@Html.DisplayNameFor(model => model.RestaurantName)*@
+                Restaurant Name
+            </th>
+            <th>
+                @*@Html.DisplayNameFor(model => model.BookingDateTime)*@
+                Booking Date
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RestaurantName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BookingDateTime)
+                </td>
+                <td>
+                    @*<a href="@Url.Action("DeleteBooking", "Restaurants", new { id = item.BookingId })" class="btn-sm btn-warning" data-toggle="tooltip" title="Delete">
+                        <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                                         </a>*@
+                    @*<input type="submit" name="deletebook" id="deletebooking" value="Delete booking" class="btn btn-default" />
+                        <input type="text" name="deletebook" value="@item.BookingId" style="display: none;" />*@
+                    <a href="@Url.Action("DeleteBooking", "Restaurants", new { id = item.BookingId })" class="btn-sm btn-danger" data-toggle="tooltip" title="Delete">
+                        <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

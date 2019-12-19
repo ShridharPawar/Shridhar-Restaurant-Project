@@ -1,4 +1,6 @@
-﻿const TOKEN = "pk.eyJ1Ijoic2hyaWRoYXJwYXdhciIsImEiOiJjazAyMTQ4MHUwaG52M21wNDk4a29ncTF1In0.cHtu-I1h34aPZp70n4V6iA";
+﻿
+
+const TOKEN = "pk.eyJ1Ijoic2hyaWRoYXJwYXdhciIsImEiOiJjazAyMTQ4MHUwaG52M21wNDk4a29ncTF1In0.cHtu-I1h34aPZp70n4V6iA";
 var locations = [];
 // The first step is obtain all the latitude and longitude from the HTML
 // The below is a simple jQuery selector
@@ -39,6 +41,7 @@ var map = new mapboxgl.Map({
 });
 map.on('load', function () {
     // Add a layer showing the places.
+
     map.addLayer({
         "id": "places",
         "type": "symbol",
@@ -54,8 +57,16 @@ map.on('load', function () {
             "icon-allow-overlap": true
         }
     });
+   
+    map.addControl(new mapboxgl.GeolocateControl({
+        positionOptions: {
+            enableHighAccuracy: true
+        },
+        trackUserLocation: true
+    }));
     map.addControl(new MapboxGeocoder({
-        accessToken: mapboxgl.accessToken
+        accessToken: mapboxgl.accessToken,
+        marker: { color: 'orange' }, mapboxgl: mapboxgl
     }));;
     map.addControl(new mapboxgl.NavigationControl());
     // When a click event occurs on a feature in the places layer, open a popup at the

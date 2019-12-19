@@ -17,7 +17,7 @@ HTML,CSS to develop the front end. The project has the following features:
 
 (vii) The admin has the rights to create a restaurant, create an event, edit details of a restaurant and delete a restaurant.
 
-(viii) The user can see the bar chart and line chart comparing the restaurants names and their ratings.
+(viii) The user can see the bar chart and line chart comparing the restaurants names and their ratings. When clicked on the bar chart, the user can see the number of bookings at that restaurant.
 
 (ix) There is also a functionality of generating PDF.
 

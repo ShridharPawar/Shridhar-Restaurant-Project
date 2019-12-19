@@ -13,6 +13,8 @@
           <Property Name="RestaurantId" Type="int" Nullable="false" />
           <Property Name="EmailId" Type="nvarchar(max)" Nullable="false" />
           <Property Name="BookingDateTime" Type="datetime" />
+          <Property Name="Spots" Type="int" Nullable="false" />
+          <Property Name="RestaurantName" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="Customers">
           <Key>
@@ -24,6 +26,14 @@
           <Property Name="EmailAddress" Type="nvarchar(max)" Nullable="false" />
           <Property Name="ContactNumber" Type="nvarchar(max)" Nullable="false" />
         </EntityType>
+        <EntityType Name="Images">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Path" Type="varchar(max)" />
+          <Property Name="EmailDescription" Type="nvarchar(max)" />
+        </EntityType>
         <EntityType Name="Location">
           <Key>
             <PropertyRef Name="Id" />
@@ -34,6 +44,7 @@
           <Property Name="Description" Type="varchar(max)" Nullable="false" />
           <Property Name="Latitude" Type="numeric" Precision="10" Scale="8" Nullable="false" />
           <Property Name="Longitude" Type="numeric" Precision="11" Scale="8" Nullable="false" />
+          <Property Name="RestaurantId" Type="int" />
         </EntityType>
         <EntityType Name="RestaurantRating">
           <Key>
@@ -78,9 +89,22 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="fk_restaurantid">
+          <End Role="Restaurants" Type="Self.Restaurants" Multiplicity="0..1" />
+          <End Role="Location" Type="Self.Location" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Restaurants">
+              <PropertyRef Name="RestaurantId" />
+            </Principal>
+            <Dependent Role="Location">
+              <PropertyRef Name="RestaurantId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="HotelAssign1ModelStoreContainer">
           <EntitySet Name="Bookings" EntityType="Self.Bookings" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Customers" EntityType="Self.Customers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Images" EntityType="Self.Images" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Location" EntityType="Self.Location" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RestaurantRating" EntityType="Self.RestaurantRating" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Restaurants" EntityType="Self.Restaurants" Schema="dbo" store:Type="Tables" />
@@ -91,6 +115,10 @@
           <AssociationSet Name="FK__Restauran__Resta__6FE99F9F" Association="Self.FK__Restauran__Resta__6FE99F9F">
             <End Role="Restaurants" EntitySet="Restaurants" />
             <End Role="RestaurantRating" EntitySet="RestaurantRating" />
+          </AssociationSet>
+          <AssociationSet Name="fk_restaurantid" Association="Self.fk_restaurantid">
+            <End Role="Restaurants" EntitySet="Restaurants" />
+            <End Role="Location" EntitySet="Location" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -106,6 +134,8 @@
           <Property Name="EmailId" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="BookingDateTime" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Restaurant" Relationship="Self.FK__Bookings__Restau__25869641" FromRole="Bookings" ToRole="Restaurants" />
+          <Property Name="Spots" Type="Int32" Nullable="false" />
+          <Property Name="RestaurantName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Restaurant">
           <Key>
@@ -119,6 +149,7 @@
           <NavigationProperty Name="Bookings" Relationship="Self.FK__Bookings__Restau__25869641" FromRole="Restaurants" ToRole="Bookings" />
           
           <NavigationProperty Name="RestaurantRatings" Relationship="HotelAssign1Model.FK__Restauran__Resta__6FE99F9F" FromRole="Restaurant" ToRole="RestaurantRating" />
+          <NavigationProperty Name="Locations" Relationship="HotelAssign1Model.FK__Location__Restau__3A4CA8FD" FromRole="Restaurant" ToRole="Location" />
         </EntityType>
         <Association Name="FK__Bookings__Restau__25869641">
           <End Role="Restaurants" Type="Self.Restaurant" Multiplicity="1" />
@@ -148,6 +179,11 @@
             <End Role="Restaurant" EntitySet="Restaurants" />
             <End Role="RestaurantRating" EntitySet="RestaurantRatings" />
           </AssociationSet>
+          <EntitySet Name="Images" EntityType="HotelAssign1Model.Image" />
+          <AssociationSet Name="FK__Location__Restau__3A4CA8FD" Association="HotelAssign1Model.FK__Location__Restau__3A4CA8FD">
+            <End Role="Restaurant" EntitySet="Restaurants" />
+            <End Role="Location" EntitySet="Locations" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Location">
           <Key>
@@ -159,6 +195,8 @@
           <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="Latitude" Type="Decimal" Nullable="false" Precision="10" Scale="8" />
           <Property Name="Longitude" Type="Decimal" Nullable="false" Precision="11" Scale="8" />
+          <Property Name="RestaurantId" Type="Int32" />
+          <NavigationProperty Name="Restaurant" Relationship="HotelAssign1Model.FK__Location__Restau__3A4CA8FD" FromRole="Location" ToRole="Restaurant" />
         </EntityType>
         <EntityType Name="Customer">
           <Key>
@@ -194,6 +232,26 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Image">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Path" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="EmailDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <Association Name="FK__Location__Restau__3A4CA8FD">
+          <End Type="HotelAssign1Model.Restaurant" Role="Restaurant" Multiplicity="0..1" />
+          <End Type="HotelAssign1Model.Location" Role="Location" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Restaurant">
+              <PropertyRef Name="RestaurantId" />
+            </Principal>
+            <Dependent Role="Location">
+              <PropertyRef Name="RestaurantId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -203,6 +261,8 @@
           <EntitySetMapping Name="Bookings">
             <EntityTypeMapping TypeName="HotelAssign1Model.Booking">
               <MappingFragment StoreEntitySet="Bookings">
+                <ScalarProperty Name="RestaurantName" ColumnName="RestaurantName" />
+                <ScalarProperty Name="Spots" ColumnName="Spots" />
                 <ScalarProperty Name="BookingId" ColumnName="BookingId" />
                 <ScalarProperty Name="RestaurantId" ColumnName="RestaurantId" />
                 <ScalarProperty Name="EmailId" ColumnName="EmailId" />
@@ -224,6 +284,7 @@
           <EntitySetMapping Name="Locations">
             <EntityTypeMapping TypeName="HotelAssign1Model.Location">
               <MappingFragment StoreEntitySet="Location">
+                <ScalarProperty Name="RestaurantId" ColumnName="RestaurantId" />
                 <ScalarProperty Name="Longitude" ColumnName="Longitude" />
                 <ScalarProperty Name="Latitude" ColumnName="Latitude" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
@@ -251,6 +312,15 @@
                 <ScalarProperty Name="CustomerEmail" ColumnName="CustomerEmail" />
                 <ScalarProperty Name="RestaurantId" ColumnName="RestaurantId" />
                 <ScalarProperty Name="RatingId" ColumnName="RatingId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Images">
+            <EntityTypeMapping TypeName="HotelAssign1Model.Image">
+              <MappingFragment StoreEntitySet="Images">
+                <ScalarProperty Name="EmailDescription" ColumnName="EmailDescription" />
+                <ScalarProperty Name="Path" ColumnName="Path" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

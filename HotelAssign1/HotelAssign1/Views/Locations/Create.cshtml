@@ -43,7 +43,7 @@
             @Html.LabelFor(model => model.Latitude, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Latitude, new { htmlAttributes = new { @class = "form-control",tabindex=3, accesskey = "l",title="This is where you type the latitude of the event location." } })
-                @Html.ValidationMessageFor(model => model.Latitude, "", new { @class = "text-danger" })
+                @Html.ValidationMessageFor(model => model.Latitude, "Latitude should be between -90 and 90.", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -51,7 +51,7 @@
             @Html.LabelFor(model => model.Longitude, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Longitude, new { htmlAttributes = new { @class = "form-control",tabindex=4,title="This is where the longitude of the event location." } })
-                @Html.ValidationMessageFor(model => model.Longitude, "", new { @class = "text-danger" })
+                @Html.ValidationMessageFor(model => model.Longitude, "Longitude should be between -180 and 180.", new { @class = "text-danger" })
             </div>
         </div>
 

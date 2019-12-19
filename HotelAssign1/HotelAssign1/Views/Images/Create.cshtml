@@ -1,0 +1,75 @@
+﻿@model HotelAssign1.Models.Image
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+    <style>
+        #heading {
+            margin-top: 50px;
+        }
+    </style>
+<h2 id="heading">Send Bulk email to the subscribed customers!</h2>
+
+@using (Html.BeginForm("Create", "Images", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+       
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            <label class="control-label col-md-2" for="EmailDescription">Select file</label>
+            <div class="col-md-10">
+                <input type="file" name="postedFile" class="btn btn-default" accept="image/png,image/jpeg" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.EmailDescription, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.EmailDescription, new { htmlAttributes = new { @class = "form-control", @id = "EmailDescription", @name = "EmailDescription" } })
+                @*<input type="text" name="EmailDescription" id="EmailDescription" class="form-control col-sm-3">*@
+                @Html.ValidationMessageFor(model => model.EmailDescription, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        @if (ViewBag.subscribedcustomers.Count > 0)
+        {
+            <div class="form-group">
+                <label class="control-label col-md-2">Subscribed customers:</label>
+                <div class="col-md-10">
+                    <div class="form-group">
+                        <input type="checkbox" name="customers" value="SelectAll" /><label>Select All</label>
+                    </div>
+                        @foreach (var item in ViewBag.subscribedcustomers)
+                        {
+                            <div class="form-group">
+                                <input type="checkbox" name="customers" value="@item.EmailAddress" /><label>@item.FirstName @item.LastName</label>
+                            </div>
+                        }
+
+                    </div>
+                </div>
+        }
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Send Bulk Email!" class="btn btn-success" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to the home page", "Index", "Restaurants")
+</div>
+
+@section Scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        tinymce.init({ selector: "#EmailDescription" });
+    </script>
+}

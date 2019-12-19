@@ -15,35 +15,32 @@
 <style>
 
     #picker {
-        
         white-space: normal;
         margin-right: 10px;
         width: 150px;
         margin-bottom: 20px;
     }
 
+    .dropdownbook {
+        width: 150px;
+        margin-right: 10px;
+    }
+
     #book {
         white-space: normal;
-        margin-bottom: 20px;
-     }
-
-    /*#RatingBox {
-        
-        white-space: normal;
-        margin-right: 10px;
-        width: 150px;
-        margin-bottom: 20px;
-    }*/
+        margin-bottom: 25px;
+        margin: 1px;
+    }
 
     #RatingButton {
         white-space: normal;
         margin-bottom: 15px;
-        margin-left:10px;
-     }
+        margin-left: 10px;
+    }
 
-    input[type="radio"]{
-  margin: 5px 0;
-}
+    input[type="radio"] {
+        margin: 5px 0;
+    }
 
     .booking {
         display: inline-block;
@@ -52,9 +49,34 @@
     .rating {
         display: inline-block;
     }
-</style>
 
-<h2>Restaurant Details</h2>
+    #outer {
+        width: 100%;
+        text-align: center;
+    }
+
+    .inner {
+        display: inline-block;
+    }
+
+    .heading {
+        margin-right: 700px;
+    }
+
+    
+    #heading {
+        margin-top: 40px;
+    }
+
+</style>
+<div id="outer">
+    <div id="heading" class="inner heading"><h2>Restaurant Details</h2></div>
+    <div class="inner">
+        @*<button id="mybooking" type="submit" class="btn btn-info">My Bookings</button>*@
+        <input type="button" id="mybooking" class="btn btn-info" value="My Bookings" onclick="location.href='@Url.Action("EditBooking", "Restaurants")'"/>
+    </div>
+</div>
+
 <div>
 
     <hr />
@@ -94,70 +116,69 @@
 </div>
 
 @*@using (Html.BeginForm("MakeBooking", "Restaurants", FormMethod.Post))
-{*@
-   
+    {*@
+
 <form>
     <div class="form-group">
         @Html.TextBoxFor(x => x.RestaurantId, new { style = "display: none;" })
         @*@Html.HiddenFor(x => x.RestaurantId)*@
-        <div class="col-md-12 booking">
+        <div class="col-md-12 col-12 col-sm-6 booking">
             <input type="text" name="BookingDate" id="picker" class="form-control col-sm-3">
+            @Html.DropDownList("Spots", new List<SelectListItem> {
+           new SelectListItem{Text="1",Value="1",Selected=true },
+           new SelectListItem{Text="2",Value="2" },
+           new SelectListItem{Text="3",Value="3"},
+           new SelectListItem{Text="4",Value="4"},
+           new SelectListItem{Text="5",Value="5"},
+           new SelectListItem{Text="6",Value="6"},
+           new SelectListItem{Text="7",Value="7"},
+           new SelectListItem{Text="8",Value="8"},
+           new SelectListItem{Text="9",Value="9"},
+           new SelectListItem{Text="10",Value="10"},
+       }, "Number of people", new { @class = "form-control col-sm-1 col-md-1 dropdownbook" })
             <button id="book" type="submit" class="btn btn-success">Book a table!</button>
         </div>
-        <div class="col-md-12 rating">
-            @*<input type="text" name="RatingBox" id="RatingBox" class="form-control col-sm-3">*@
-            <div class="" id="filterDay">
-                <input type="radio" name="rating" value="1">
-                <label>1 &nbsp; &nbsp;</label>
-                <input type="radio" name="rating" value="2">
-                <label>2 &nbsp; &nbsp;</label>
-                <input type="radio" name="rating" value="3">
-                <label>3 &nbsp; &nbsp;</label>
-                <input type="radio" name="rating" value="4">
-                <label>4 &nbsp; &nbsp;</label>
-                <input type="radio" name="rating" value="5">
-                <label>5 &nbsp; &nbsp;</label>
-                <button id="RatingButton" type="submit" class="btn btn-primary">Rate the restaurant!</button>
-            </div>
-            
-
+        @if(ViewBag.BookingExists)
+        { 
+        <div class="col-12 col-sm-6 col-md-12 rating">
+        @*<input type="text" name="RatingBox" id="RatingBox" class="form-control col-sm-3">*@
+        <div class="col-12 col-sm-6 col-md-12" id="filterDay">
+            <input type="radio" name="rating" value="1">
+            <label>1 &nbsp; &nbsp;</label>
+            <input type="radio" name="rating" value="2">
+            <label>2 &nbsp; &nbsp;</label>
+            <input type="radio" name="rating" value="3">
+            <label>3 &nbsp; &nbsp;</label>
+            <input type="radio" name="rating" value="4">
+            <label>4 &nbsp; &nbsp;</label>
+            <input type="radio" name="rating" value="5">
+            <label>5 &nbsp; &nbsp;</label>
+            <button id="RatingButton" type="submit" class="btn btn-primary">Rate the restaurant!</button>
         </div>
+        </div>
+        }
     </div>
 
-    
+
 </form>
-   
+
 @*}*@
 <hr>
 <p>
-    @if (ViewBag.IsAdmin)
-    {
-        @Html.ActionLink("Edit", "Edit", new { id = Model.RestaurantId })
-    }
-
     @Html.ActionLink("Back to List", "Index")
 </p>
 
 <script>
 
-    //$("#RatingBox").keyup(function () {
-    //    if ($("#RatingBox").val() > 5 || $("#RatingBox").val() < 1)
-    //    {
-    //        alert("Please rate the restaurant between 1 and 5.");
-    //    }
-    //});
+
 
     $("#RatingButton").click(function (e) {
-        debugger;
-        //if ($("#RatingBox").val() > 5 || $("#RatingBox").val().trim() == "" || $("#RatingBox").val() < 1) {
-        //    alert("Please rate the restaurant between 1 and 5.");
-        //}
         if ($('#filterDay input:radio:checked').val() == undefined)
         { alert("Please rate the restaurant between 1 and 5.");}
         else {
             e.preventDefault();
             var saveUrl = '@Url.Action("RateRestaurant","Restaurants")';
-            //var rating = $("#RatingBox").val();
+
             var rating = $('#filterDay input:radio:checked').val();
             var RestaurantId = $("#RestaurantId").val();
             $.ajax({
@@ -168,39 +189,40 @@
                     alert("Ajax call failed");
                 }
             }).done(function (data) {
-                debugger;
-                alert("You have successfully rated the restaurant!");
-
-                //window.location.replace(data.newUrl);
-            })
+                if (data.AlreadyRatingGiven == true) {
+                alert("You have already rated the restaurant once!");
+            }
+            else { alert("You have successfully rated the restaurant!"); }
+               })
 
         }
     });
 
     $("#book").click(function (e) {
-        
-        
-            e.preventDefault();
+        e.preventDefault();
         var saveUrl = '@Url.Action("MakeBooking","Restaurants")';
-        var datetime = $(this).prev('input').val();
+        var datetime = $("#picker").val();
         var Restaurantid = $("#RestaurantId").val();
+        var spots = $('.dropdownbook').val();
         $.ajax({
             url: saveUrl,
-            data: { 'DateAndTime': datetime, 'RestaurantId': Restaurantid },
+            data: { 'DateAndTime': datetime, 'RestaurantId': Restaurantid,'Spots':spots },
             method: "POST",
             error: function () {
                 alert("Ajax call failed");
             }
         }).done(function (data) {
-            debugger;
+
             if (data.BookingStatus == "OverBooked") {
                 alert("Oops! The restaurant has been overbooked. Please select some other date or time.");
             }
+            else if (data.BookingStatus == "Already Booked")
+            { alert("You have already made a booking at this restaurant for the given time.");}
             else { alert("Booking done successfully! An email confirming your reservation has been sent to your email id."); }
 
-            //window.location.replace(data.newUrl);
+
         })
-    
+
 
     });
 
@@ -215,7 +237,7 @@
         timepicker: true,
         datepicker: true,
         format: 'Y-m-d H:i',
-        value: '2019-08-20 12:00',
+        value: '2019-10-28 12:00',
         minDate: date
     });
 

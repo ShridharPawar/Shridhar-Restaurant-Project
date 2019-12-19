@@ -1,89 +1,122 @@
-﻿@{
-    ViewBag.Title = "Home Page";
-}
-    <!DOCTYPE html>
-    <html>
-    <head>
-        <style>
-             html, body {
-                height: 100%;
-                margin: 0;
-                min-height: 100vh;
-                
-            }
-
-
-
-            .bg {
-                /*background-image: url("restaurant.jpg");*/
-                
-                background-image: url('../../Content/food.jpg');
-                /*opacity: 0.7;*/
-                /* Full height */
-                height: 100%;
-                min-height: 100vh;
-                /* Center and scale the image nicely */
-                background-position: center;
-                background-repeat: no-repeat;
-                background-size: cover;
-            }
-            p.heading {
-            font-size: 50px;
-            padding-top:80px;
-            padding-left:350px;
-            color:peru;
-            filter:brightness(0.7);
-            opacity: 1;
-            }
-
-            ul.content {
-            font-size: 20px;
-            padding-left:350px;
-            padding-top:100px;
-            }
-
-             
-        </style>
-    </head>
-<body>
-    
-        <div class="bg">
-        @*<div class="jumbotron">
-            <h1>ASP.NET</h1>
-            <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-            <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-        </div>*@
-
-        @*<div class="row">*@
-            @*<div class="col-md-12">*@
-                <p class="heading">Welcome to the Look & Book Web Application!</p>
-                <ul class="content">
-                    <li>Here you can search your favourite restaurants and get to know their details.</li>
-                    <li>Make a reservation at a restaurant.</li>
-                    <li>Get email confirmation whenever you make a reservation.</li>
-                    <li>See nearby events.</li>
-                    <li>Give rating to the restaurants and lot more!</li>
-                </ul>
-        
-                @*<h2>Getting started</h2>
+﻿<style>
+    .carousel-inner > .item {
+        height: 680px;
+    }
+</style>
+<div id="mycarousel" class="carousel slide" data-interval="2500" @*data-pause="false"*@ data-ride="carousel">
+    <ol class="carousel-indicators">
+        <li data-target="#mycarousel" data-slide-to="0" class="active"></li>
+        <li data-target="#mycarousel" data-slide-to="1"></li>
+        <li data-target="#mycarousel" data-slide-to="2"></li>
+        <li data-target="#mycarousel" data-slide-to="3"></li>
+    </ol>
+    <div class="carousel-inner">
+        <div class="item active">
+            <img src="~/Content/Food1.jpg" class="img-responsive" />
+            <div class="carousel-caption">
+                <h3>Amazing Restaurants near you!</h3>
                 <p>
-                    ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-                    enables a clean separation of concerns and gives you full control over markup
-                    for enjoyable, agile development.
+                    Here you can search your favourite restaurants and get to know their details. You
+                    can also rate the restaurants and see interactive charts to compare the restaurants!
                 </p>
-                <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
             </div>
-            <div class="col-md-4">
-                <h2>Get more libraries</h2>
-                <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-                <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
+        </div>
+
+        <div class="item">
+            <img src="~/Content/Reservation.jpg" class="img-responsive" />
+            <div class="carousel-caption">
+                <h3>Reservation</h3>
+                <p>Book a spot at a restaurant! Get an email confirming the booking.</p>
             </div>
-            <div class="col-md-4">
-                <h2>Web Hosting</h2>
-                <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-                <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-            </div>*@
-        @*</div>*@
+        </div>
+
+        <div class="item">
+            <img src="~/Content/maps.jpg" class="img-responsive" />
+            <div class="carousel-caption">
+                <h3>Maps</h3>
+                <p>Follow the events happening near you and visit them using our interesting map!</p>
+            </div>
+        </div>
+
+        <div class="item">
+            <img src="~/Content/Events.jpg" class="img-responsive" />
+            <div class="carousel-caption">
+                <h3>Events and newsletter</h3>
+                <p>
+                    Subscribe to our newsletter and get an email whenever a new restaurant or an event is
+                    launched!
+                </p>
+            </div>
+        </div>
     </div>
-</body>
-    </html>
+
+    <a class="left carousel-control" href="#mycarousel" role="button" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+    </a>
+
+    <a class="right carousel-control" href="#mycarousel" role="button" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+    </a>
+
+</div>
+
+
+@*
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <style>
+                 html, body {
+                    height: 100%;
+                    margin: 0;
+                    min-height: 100vh;
+
+                }
+
+
+
+                .bg {
+
+                     background-image: url('../../Content/food.jpg');
+                    height: 100%;
+                    min-height: 100vh;
+
+                    background-position: center;
+                    background-repeat: no-repeat;
+                    background-size: cover;
+                }
+                p.heading {
+                font-size: 50px;
+                padding-top:80px;
+                padding-left:350px;
+                color:peru;
+                filter:brightness(0.7);
+                opacity: 1;
+                }
+
+                ul.content {
+                font-size: 20px;
+                padding-left:350px;
+                padding-top:100px;
+                }
+
+
+            </style>
+        </head>
+    <body>
+
+            <div class="bg">
+
+                    <p class="heading">Welcome to the Look & Book Web Application!</p>
+                    <ul class="content">
+                        <li>Here you can search your favourite restaurants and get to know their details.</li>
+                        <li>Make a reservation at a restaurant.</li>
+                        <li>Get email confirmation whenever you make a reservation.</li>
+                        <li>See nearby events.</li>
+                        <li>Give rating to the restaurants and lot more!</li>
+                    </ul>
+
+
+        </div>
+    </body>
+        </html>*@

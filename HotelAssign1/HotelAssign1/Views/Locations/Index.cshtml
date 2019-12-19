@@ -5,66 +5,92 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<style>
+     #heading {margin-top:50px;
+        }
 
-<h2>Index</h2>
+</style>
+<h2 id="heading">Events and their locations</h2>
 <div id="map" style="height:300px"></div>
 <br />
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+@if (ViewBag.IsAdmin)
+{
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+}
 <table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Address)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Description)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Latitude)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Longitude)
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
-        <tr class="coordinates">
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Address)
-            </td>
-            <td class="description">
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td class="latitude">
-                @Html.DisplayFor(modelItem => item.Latitude)
-            </td>
-            <td class="longitude">
-                @Html.DisplayFor(modelItem => item.Longitude)
-            </td>
-            <td>
-                @if (ViewBag.IsAdmin == true)
-                {
-                    @Html.ActionLink("Edit", "Edit", new { id = item.Id })}
-                @Html.ActionLink("Details", "Details", new { id = item.Id })
-                @if (ViewBag.IsAdmin == true)
-                {
-                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })}
-                </td>
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Address)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Latitude)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Longitude)
+            </th>
+            <th></th>
         </tr>
-    }
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr class="coordinates">
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Address)
+                </td>
+                <td class="description">
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td class="latitude">
+                    @Html.DisplayFor(modelItem => item.Latitude)
+                </td>
+                <td class="longitude">
+                    @Html.DisplayFor(modelItem => item.Longitude)
+                </td>
+                <td>
 
+                    <a href="@Url.Action("Details", "Locations", new { id = item.Id })" class="btn-sm btn-primary" data-toggle="tooltip" title="Preview">
+                        <span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span>
+                    </a>
+                    @if (ViewBag.IsAdmin == true)
+                    {
+                        <a href="@Url.Action("Edit", "Locations", new { id = item.Id })" class="btn-sm btn-warning" data-toggle="tooltip" title="Edit">
+
+                            <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                        </a>
+                        <a href="@Url.Action("Delete", "Locations", new { id = item.Id })" class="btn-sm btn-danger" data-toggle="tooltip" title="Delete">
+
+                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                        </a>
+                        
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
 </table>
 @section Scripts {
 
-    @*<script src="~/Scripts/jquery-3.4.1.min.js"></script>*@
+    @Scripts.Render("~/Scripts/DataTables/jquery.dataTables.js")
+    @Scripts.Render("~/Scripts/DataTables/dataTables.bootstrap.js")
+    <script>
+ $(document).ready(function () {
+ $('.table').DataTable();
+ });
+    </script>
     @Scripts.Render("~/bundles/mapbox")
 }
+<link href="~/Content/DataTables/css/dataTables.bootstrap.min.css"
+      rel="stylesheet" />

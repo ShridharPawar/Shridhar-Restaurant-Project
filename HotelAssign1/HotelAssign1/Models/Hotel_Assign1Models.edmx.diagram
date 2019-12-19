@@ -8,10 +8,12 @@
         <EntityTypeShape EntityType="HotelAssign1Model.Booking" Width="1.5" PointX="4" PointY="1" IsExpanded="true" />
         <EntityTypeShape EntityType="HotelAssign1Model.Restaurant" Width="2" PointX="0.75" PointY="0.875" IsExpanded="true" />
         <AssociationConnector Association="HotelAssign1Model.FK__Bookings__Restau__25869641" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="HotelAssign1Model.Location" Width="1.5" PointX="5.25" PointY="3.25" />
+        <EntityTypeShape EntityType="HotelAssign1Model.Location" Width="1.5" PointX="5.375" PointY="3.625" />
         <EntityTypeShape EntityType="HotelAssign1Model.Customer" Width="1.5" PointX="0.75" PointY="3.875" />
         <EntityTypeShape EntityType="HotelAssign1Model.RestaurantRating" Width="1.875" PointX="2.875" PointY="3.875" />
         <AssociationConnector Association="HotelAssign1Model.FK__Restauran__Resta__6FE99F9F" />
+        <EntityTypeShape EntityType="HotelAssign1Model.Image" Width="1.5" PointX="6.375" PointY="0.75" />
+        <AssociationConnector Association="HotelAssign1Model.FK__Location__Restau__3A4CA8FD" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -4,14 +4,27 @@
     ViewBag.Title = "List of Restaurants";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+    <head>
+        <style>
+            #heading {
+                margin-top: 50px;
+            }
+        </style>
+    </head>
+<div id="heading">
+    <h1>List of Restaurants</h1>
+    @if (ViewBag.IsAdmin)
+    {
 
-<h2>List of Restaurants</h2>
-@if (ViewBag.IsAdmin)
-{
-    <p>
-        @Html.ActionLink("Create New", "Create")
-    </p>
- }
+        <p>
+            @Html.ActionLink("Create New", "Create")
+        </p>
+
+
+    }
+</div>
+
+
 <table class="table">
     <thead>
         <tr>
@@ -56,7 +69,7 @@
                     }
                     @*@Html.ActionLink("Edit", "Edit", new { id = item.RestaurantId })*@
                     <a href="@Url.Action("Details", "Restaurants", new { id = item.RestaurantId })" class="btn-sm btn-primary" data-toggle="tooltip" title="Preview">
-                        <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                        <span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span>
                     </a>
                     @if (ViewBag.IsAdmin)
                     {
@@ -65,12 +78,13 @@
                             <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                         </a>
                     }
-                        @*@Html.ActionLink("Delete", "Delete", new { id = item.RestaurantId })*@
-                    </td>
+                    @*@Html.ActionLink("Delete", "Delete", new { id = item.RestaurantId })*@
+                </td>
             </tr>
         }
     </tbody>
 </table>
+
 <script src="~/Scripts/jquery-3.4.1.min.js"></script>
 @section Scripts {
 

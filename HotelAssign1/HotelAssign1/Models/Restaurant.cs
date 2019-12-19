@@ -21,11 +21,14 @@ namespace HotelAssign1.Models
         {
             this.Bookings = new HashSet<Booking>();
             this.RestaurantRatings = new HashSet<RestaurantRating>();
+            this.Locations = new HashSet<Location>();
         }
-
+    
         public int RestaurantId { get; set; }
 
         [DisplayName("Restaurant Name")]
+        [Required]
+        [StringLength(255, MinimumLength = 4)]
         public string RestaurantName { get; set; }
 
         [DisplayName("Restaurant Cuisine")]
@@ -41,5 +44,7 @@ namespace HotelAssign1.Models
         public virtual ICollection<Booking> Bookings { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<RestaurantRating> RestaurantRatings { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Location> Locations { get; set; }
     }
 }

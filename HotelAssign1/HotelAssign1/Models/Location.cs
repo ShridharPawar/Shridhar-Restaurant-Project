@@ -12,18 +12,33 @@ namespace HotelAssign1.Models
     using System;
     using System.Collections.Generic;
     using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
 
     public partial class Location
     {
         public int Id { get; set; }
 
         [DisplayName("Event Name")]
+        [Required]
+        [StringLength(255, MinimumLength = 4)]
         public string Name { get; set; }
 
-        [DisplayName("Restaurant Address")]
+        [DisplayName("Event Address")]
+        [Required]
         public string Address { get; set; }
+
+        [Required]
         public string Description { get; set; }
+
+        [Required]
+        [Range(-90, 90)]
         public decimal Latitude { get; set; }
+
+        [Required]
+        [Range(-180, 180)]
         public decimal Longitude { get; set; }
+        public Nullable<int> RestaurantId { get; set; }
+    
+        public virtual Restaurant Restaurant { get; set; }
     }
 }

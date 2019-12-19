@@ -18,6 +18,8 @@ namespace HotelAssign1.Models
         public int RestaurantId { get; set; }
         public string EmailId { get; set; }
         public Nullable<System.DateTime> BookingDateTime { get; set; }
+        public int Spots { get; set; }
+        public string RestaurantName { get; set; }
     
         public virtual Restaurant Restaurant { get; set; }
     }

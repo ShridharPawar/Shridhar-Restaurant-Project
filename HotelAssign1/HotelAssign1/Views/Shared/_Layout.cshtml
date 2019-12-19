@@ -6,17 +6,19 @@
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-
+    <script src="~/Scripts/tinymce/tinymce.min.js"></script>
     @* This is for the mapbox map. *@
     <script src='https://api.mapbox.com/mapbox-gl-js/v0.47.0/mapbox-gl.js'></script>
     <link href='https://api.mapbox.com/mapbox-gl-js/v0.47.0/mapbox-gl.css' rel='stylesheet' />
+    <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     @*This is used for the Geocoding Mapbox API*@
     <script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.2.0/mapbox-gl-geocoder.min.js'></script>
     <link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.2.0/mapbox-gl-geocoder.css' type='text/css' />
 
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar navbar-inverse navbar-fixed-top col-xs-12 col-sm-12 col-12">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -24,19 +26,16 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("Look & Book", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    @*@if (User.Identity.IsAuthenticated)
-        {*@
-                    @*<li>@Html.ActionLink("Home", "Index", "Home")</li>*@
-                    @*<li>@Html.ActionLink("About", "About", "Home")</li>*@
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                    <li>@Html.ActionLink("Restaurants", "Index", "Restaurants")</li>
-                    <li>@Html.ActionLink("Events", "Index", "Locations")</li>
-                    <li>@Html.ActionLink("My Details", "Index", "Customers")</li>
-                    @*}*@
+                    <li><a href="@Url.Action("Contact", "Home")"><i class="glyphicon glyphicon-earphone"></i><span> Contact</span></a></li>
+                    <li><a href="@Url.Action("Index", "Restaurants")"><i class="fas fa-pizza-slice"></i><span> Restaurants</span></a></li>
+                    <li><a href="@Url.Action("Index", "Locations")"><i class="fas fa-map-marker-alt"></i><span> Events</span></a></li>
+                    <li><a href="@Url.Action("Index", "Customers")"><i class="fas fa-bookmark"></i><span> NewsLetter</span></a></li>
+                    <li><a href="@Url.Action("Dashboard", "Chart")"><i class="fa fa-bar-chart"></i><span> Charts</span></a></li>
+                    <li><a href="@Url.Action("EditBooking", "Restaurants")"><i class="fa fa-ticket"></i><span> My Bookings</span></a></li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
@@ -46,7 +45,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            <p>&copy; @DateTime.Now.Year - Look & Book Application</p>
         </footer>
     </div>
 

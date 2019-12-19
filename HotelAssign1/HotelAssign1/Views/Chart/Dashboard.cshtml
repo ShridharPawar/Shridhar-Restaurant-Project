@@ -1,0 +1,192 @@
+﻿<html>
+
+<head>
+    
+        <style>
+            #pdf {
+                margin-left: 1000px;
+                margin: 5px;
+                margin-top:50px;
+            }
+        </style>
+    
+    <script src="~/Scripts/Chart.min.js"></script>
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <link href="~/Scripts/bootstrap.min.css" rel="stylesheet" />
+    <style>
+        #chart_container {
+            width: 900px;
+            height: 400px;
+            border: 1px solid #ddd;
+            padding: 5px;
+            border-radius: 5px;
+            margin-top: 50px;
+        }
+        #barbutton{margin-left:300px;margin-top:50px;}
+       #linebutton{margin-top:50px;}
+       #stepsize{margin-left:20px;}
+    </style>
+</head>
+
+<body> 
+    <div class="row">
+        <div class="col-12 col-sm-6 col-md-8">
+            <input type="button" class="btn btn-success" value="Generate PDF" onclick="location.href='@Url.Action("SubmitAction", "PDFGenerator")'" id="pdf" />
+            <input type="button" id="barbutton" value="Bar chart" class="btn btn-danger" />
+            <input type="button" id="linebutton" value="Line chart" class="btn btn-info" />
+        </div>
+    </div>
+    <div id="chart_container">
+        <strong>Click on the bar chart to see the number of bookings of that restaurant</strong>
+        <input type="text" placeholder="Step size" id="stepsize" />
+        <canvas id="bar_chart"></canvas>
+    </div>
+    <script>
+
+//        function getRandomColor() {
+//    var letters = '0123456789ABCDEF'.split('');
+//    var color = '#';
+//    for (var i = 0; i < 6; i++ ) {
+//        color += letters[Math.floor(Math.random() * 16)];
+//            }
+//            debugger;
+//    return color;
+//}
+        var Ratings = @Html.Raw(Json.Encode(ViewBag.Ratings));
+        var RestaurantNames = @Html.Raw(Json.Encode(ViewBag.RestaurantNames));
+        var bookingdictionary = @Html.Raw(Json.Encode(ViewBag.bookings));
+        var ctx = $("#bar_chart");
+        var bacChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+
+                labels: RestaurantNames,
+                datasets: [{
+                label: 'Restaurant names and their ratings',
+                data: Ratings,
+                    ticks: {min:0},
+                backgroundColor: "#96D18E"/*["rgba(242,166,54,.5)","rgba(145,65,72,.5)","rgba(74,25,92,.5)"]*/,
+                borderColor: "#96D18E"/*["rgba(242,166,54)", "rgba(145,65,72)", "rgba(74,25,92)"]*/,
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                maintainAspectRatio: false,
+                scales: { yAxes: [{ ticks: {  max: 5,
+                min: 0,
+                stepSize: 0.5 } }] },
+                legend: { display: true },
+                'onClick': function (evt, item) {
+
+                    var label = item[0]['_model'].label;
+
+                     var bookings = bookingdictionary[label];
+                    showBookings(label,bookings);
+
+
+          },
+            },
+
+        });
+
+        $("#barbutton").click(function () {
+            bacChart.destroy();
+  bacChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: RestaurantNames,
+                datasets: [{
+                label: 'Restaurant names and their ratings',
+                data: Ratings,
+                    ticks: {min:0},
+                backgroundColor: "#96D18E",
+                borderColor: "#96D18E",
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                maintainAspectRatio: false,
+                scales: { yAxes: [{ ticks: {  max: 5,
+                min: 0,
+                stepSize: $("#stepsize").val() } }] },
+                legend: { display: true },
+                'onClick': function (evt, item) {
+
+                    var label = item[0]['_model'].label;
+
+                     var bookings = bookingdictionary[label];
+                    showBookings(label,bookings);
+
+
+          },
+            },
+
+        });
+        });
+
+        function showBookings(label, bookings)
+        {
+            debugger;
+             bacChart.destroy();
+            bacChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: [label,""],
+                datasets: [{
+                label: 'Bookings',
+                data: [bookings,0],
+                    ticks: {min:0},
+                backgroundColor: "#96D18E",
+                borderColor: "#96D18E",
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                maintainAspectRatio: false,
+                scales: {  yAxes: [{ ticks: {
+                min: 0,
+                 } }],xAxes:[{
+                ticks:{
+               display: true,
+               autoSkip: true,
+              maxTicksLimit: 1
+    }
+}]},
+                legend: { display: true }
+            },
+
+        });
+        }
+
+        $("#linebutton").click(function () {
+            bacChart.destroy();
+   bacChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: RestaurantNames,
+                datasets: [{
+                label: 'Restaurant names and their ratings',
+                data: Ratings,
+                    ticks: {min:0},
+                backgroundColor: "#96D18E",
+                borderColor: "#96D18E",
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                maintainAspectRatio: false,
+                scales: { yAxes: [{ ticks: {  max: 5,
+                min: 0,
+                stepSize: $("#stepsize").val() } }] },
+                legend: { display: true }
+            },
+
+        });
+        });
+
+
+    </script>
+</body>
+</html>
+

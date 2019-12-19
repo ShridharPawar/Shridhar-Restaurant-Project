@@ -11,13 +11,28 @@ namespace HotelAssign1.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Customer
     {
         public int Id { get; set; }
+
+        [DisplayName("First Name")]
+        [Required]
         public string FirstName { get; set; }
+
+        [DisplayName("Last Name")]
+        [Required]
         public string LastName { get; set; }
+
+        [DisplayName("Email Address")]
+        [Required]
+        [EmailAddress]
         public string EmailAddress { get; set; }
+
+        [DisplayName("Contact Number")]
+        [Required]
         public string ContactNumber { get; set; }
     }
 }
