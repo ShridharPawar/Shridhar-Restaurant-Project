@@ -25,3 +25,5 @@ HTML,CSS to develop the front end. The project has the following features:
 (x) Bulk email is sent to the customers(admin can select the customers from a checklist) whenever a new restaurant is launched.
 
 (xi) An attachment can be attached with the email as well.
+
+Copyrights: The images on the home page are taken from various websites. The Reservation image is taken from "Eater" website. The google maps image is taken from "9to5" website. The food image is taken from "wallpaperswide" website. The event image is taken from "foodabletv" website.
