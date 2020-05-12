@@ -26,4 +26,4 @@ HTML,CSS to develop the front end. The project has the following features:
 
 (xi) An attachment can be attached with the email as well.
 
-Copyrights: The images on the home page are taken from various websites. The Reservation image is taken from "Eater" website. The google maps image is taken from "9to5" website. The food image is taken from "wallpaperswide" website. The event image is taken from "foodabletv" website.
+References: The images on the home page are taken from various websites. The Reservation image is taken from the "Eater" website. The google maps image is taken from the "9to5" website. The food image is taken from the "wallpaperswide" website. The event image is taken from the "foodabletv" website.
